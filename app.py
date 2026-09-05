@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello"
+    return render_template("send.html")
 
 
 @app.route("/connect")
@@ -14,12 +14,6 @@ def connect_page():
     url = f"http://{ip}:5000"
     generate_qr(url, output_path="static/qr_code.png")
     return render_template("connect.html", url=url)
-
-
-
-@app.route("/send")
-def send_page():
-    return render_template("send.html")
 
 
 @app.route("/send-text", methods=["POST"])

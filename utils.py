@@ -18,7 +18,16 @@ def get_local_ip():
 
 def generate_qr(url: str, output_path: str = "static/qr_code.png"):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    img = qrcode.make(url)
+
+    qr = qrcode.QRCode(
+        error_correction=qrcode.constants.ERROR_CORRECT_M,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="#22C55E", back_color="transparent")
     img.save(output_path)
     return output_path
 
